@@ -156,10 +156,12 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun eshell-prompt ()
     (let ((branch-name (git-prompt-branch-name)))
       (concat
-       " infidicos " (abbreviate-file-name (eshell/pwd)) "\n"
-       (if branch-name (concat (propertize (format "(%s)" branch-name ) 'font-lock-string-face '(:foreground "red"))"$ ") "$ ")
+       "infidicos " (abbreviate-file-name (eshell/pwd)) "\n"
+       (if branch-name (concat (propertize (format "(%s)" branch-name ) 'face `(:foreground "red"))"$ ") "$ ")
        )))
 
 (setq eshell-prompt-function #'eshell-prompt
         eshell-prompt-regexp ".*$+ ")
 ;;<=====================================================
+
+
