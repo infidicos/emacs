@@ -135,3 +135,31 @@ Repeated invocations toggle between the two most recently open buffers."
   (key-chord-define-global "xx" 'kill-buffer)))
 ;;<======================================================
 
+;;clear eshell buffer with clc()=======================>
+(defun eshell/clc()
+  "to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+;;<=====================================================
+
+;;let git branch fot eshell============================>
+(defun git-prompt-branch-name ()
+    "Get current git branch name"
+    (let ((args '("symbolic-ref" "HEAD" "--short")))
+      (with-temp-buffer
+        (apply #'process-file "git" nil (list t nil) nil args)
+        (unless (bobp)
+          (goto-char (point-min))
+          (buffer-substring-no-properties (point) (line-end-position))))))
+
+(defun eshell-prompt ()
+    (let ((branch-name (git-prompt-branch-name)))
+      (concat
+       " infidicos" (abbreviate-file-name (eshell/pwd)) " "
+       (if branch-name (concat (propertize (format "(%s)" branch-name ) 'font-lock-string-face '(:foreground "red"))"$") "$ ")
+       )))
+
+(setq eshell-prompt-function #'eshell-prompt
+        eshell-prompt-regexp ".*$+ ")
+;;<=====================================================
