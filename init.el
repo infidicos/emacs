@@ -3,6 +3,7 @@
 ;;set package manager rep================================>
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (package-initialize)
 ;;<======================================================
 
@@ -169,4 +170,7 @@ Repeated invocations toggle between the two most recently open buffers."
         eshell-prompt-regexp ".*$+ ")
 ;;<=====================================================
 
-
+;;wrap line with indent;; need code by hand in free time;;
+(use-package adaptive-wrap)
+;;set visual-line-mode, minor mode of emacs
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
