@@ -175,12 +175,14 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;set visual-line-mode, minor mode of emacs
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 
+;;set key C-. to switch buffer should use with ido-mode=>
 (global-set-key (kbd "C-.")
 
 	(lambda () (interactive "")
 
 	  (switch-to-buffer (other-buffer (current-buffer) t))))
+;;<======================================================
 
-
+;;set key C-, to switch window
 (global-set-key (kbd "C-,") 'other-window)
 
