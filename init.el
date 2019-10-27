@@ -129,10 +129,10 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (progn
   (key-chord-mode 1)
-  (key-chord-define-global "ss" 'switch-to-previous-buffer)
-  (key-chord-define-global "kk" 'next-buffer)
+  ;key-chord-define-global(key-chord-define-global "ss" 'switch-to-previous-buffer)
+  ;(key-chord-define-global "kk" 'next-buffer)
   (key-chord-define-global "gg" 'goto-line)
-  (key-chord-define-global "jj" 'other-window)
+  ;(key-chord-define-global "jj" 'other-window)
   (key-chord-define-global "xx" 'kill-buffer)))
 ;;<======================================================
 
@@ -174,3 +174,13 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package adaptive-wrap)
 ;;set visual-line-mode, minor mode of emacs
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+
+(global-set-key (kbd "C-.")
+
+	(lambda () (interactive "")
+
+	  (switch-to-buffer (other-buffer (current-buffer) t))))
+
+
+(global-set-key (kbd "C-,") 'other-window)
+
