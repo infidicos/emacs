@@ -86,9 +86,42 @@
 ;;if edit a file outside of Emacs, the default setting is for Emacs to ask you to reload the file manually. Task Emacs to reload the file automatically
 (global-auto-revert-mode t)
 
-;;set tabs 4 space
-(setq-default tab-width 4
-              indent-tabs-mode t)
+;;set tab/space indentation ===========================>
+;;creat variable for our preferred tab width
+(setq custom-tab-width 2)
+
+;;define two function to hook, can use (interative) to use M-x
+(defun disable-tabs () (setq indent-tabs-mode nil))
+(defun enable-tabs ()
+  ;set TAB free to use
+  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+  ;enable use tab for indent with value custom
+  (setq indent-tabs-mode t)
+  (setq tab-width custom-tab-width))
+
+;;use hook for prog-mode (major-mode)
+(add-hook 'prog-mode-hook 'enable-tabs)
+;;lisp and elisp should use space for indentation since it's about alignment
+(add-hook 'lisp-mode-hook 'disable-tabs)
+(add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+
+;;language specific
+(setq-default python-indent-offset custom-tab-width)
+;;set indent for c/c++ code, use C-c C-o for change
+(setq-default c-basic-offset custom-tab-width)
+
+;;Make the backspace properly erase the tab instead of removing 1 space at a time.
+(setq backward-delete-char-untabify-method 'hungry)
+
+;;visual tab as a pipe character "|"
+;; This will also show trailing characters as they are useful to spot.
+(setq whitespace-style '(face tabs tab-mark trailing))
+(custom-set-faces
+  '(whitespace-tab ((t (:foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
+(setq whitespace-display-mappings
+  '((tab-mark 9 [124 9] [92 9]))) ;124 is ascii id for "|"
+(global-whitespace-mode) ;enable whitespace mode everywhere
+;;<=====================================================
 
 ;; Display parentheses (highlight matching brackets)
 (show-paren-mode 1)
