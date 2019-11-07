@@ -44,7 +44,7 @@
 (add-to-list 'default-frame-alist '(width . 120))
 
 ;;set font 
-(add-to-list 'default-frame-alist '(font . "Hack-20"))
+(add-to-list 'default-frame-alist '(font . "Fira Code 18"))
 
 ;;disable scroll-bar
 (scroll-bar-mode -1)
