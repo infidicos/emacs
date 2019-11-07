@@ -20,21 +20,23 @@
 (setq use-package-always-ensure t)
 
 ;;theme 
-;(use-package monokai-theme
-;             :config
-;             (load-theme 'monokai t))
-(use-package zenburn-theme
-             :init
-             (setq zenburn-override-colors-alist
-                   '(("zenburn-bg" . "#383838")))
+(use-package monokai-theme
              :config
-             (load-theme 'zenburn t))
+             (load-theme 'monokai t))
+;(use-package zenburn-theme
+;             :init
+;             (setq zenburn-override-colors-alist
+;                   '(("zenburn-bg" . "#282828")))
+;             :config
+;             (load-theme 'zenburn t))
 ;(use-package doom-themes
 ;             :config
 ;             (load-theme 'doom-solarized-dark t))
 ;(use-package solarized-theme
+;             :init 
+;             (load-theme 'solarized-gruvbox-dark t)
 ;             :config
-;             (load-theme 'solarized-gruvbox-dark t))
+;             (setq solarized-high-contrast-mode-line t))
 
 ;;open emacs with fullscreen, maximized or fullboth
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -127,9 +129,9 @@
 
 ;;visual tab as a pipe character "|"
 ;; This will also show trailing characters as they are useful to spot.
-(setq whitespace-style '(face  tab-mark trailing))
+(setq whitespace-style '(face tabs tab-mark trailing))
 (custom-set-faces
-  '(whitespace-tab ((t (:foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
+  '(whitespace-tab ((t (:background unspecified :foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
 (setq whitespace-display-mappings
   '((tab-mark 9 [124 9] [92 9]))) ;124 is ascii id for "|"
 (global-whitespace-mode) ;enable whitespace mode everywhere
