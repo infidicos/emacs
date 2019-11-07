@@ -19,10 +19,22 @@
 ;;install package if not avalable with key ensure for all of use-package
 (setq use-package-always-ensure t)
 
-;;theme monokai
-(use-package monokai-theme
+;;theme 
+;(use-package monokai-theme
+;             :config
+;             (load-theme 'monokai t))
+(use-package zenburn-theme
+             :init
+             (setq zenburn-override-colors-alist
+                   '(("zenburn-bg" . "#383838")))
              :config
-             (load-theme 'monokai t))
+             (load-theme 'zenburn t))
+;(use-package doom-themes
+;             :config
+;             (load-theme 'doom-solarized-dark t))
+;(use-package solarized-theme
+;             :config
+;             (load-theme 'solarized-gruvbox-dark t))
 
 ;;open emacs with fullscreen, maximized or fullboth
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -115,7 +127,7 @@
 
 ;;visual tab as a pipe character "|"
 ;; This will also show trailing characters as they are useful to spot.
-(setq whitespace-style '(face tabs tab-mark trailing))
+(setq whitespace-style '(face  tab-mark trailing))
 (custom-set-faces
   '(whitespace-tab ((t (:foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
 (setq whitespace-display-mappings
@@ -132,24 +144,24 @@
   `((".*" "~/.emacs.d/auto-save/" t)))
 
 ;;DON'T know what is use for=============================>
-(custom-set-variables
+;(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (monokai-theme use-package))))
-(custom-set-faces
+; '(package-selected-packages (quote (monokai-theme use-package))))
+;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
-(put 'erase-buffer 'disabled nil)
+; '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
+;(put 'erase-buffer 'disabled nil)
 ;;<======================================================
 
 ;;add PATH and exec-path ===============================>
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
+(setenv "PATH" (concat "/usr/local/opt/llvm/bin:/usr/local/bin:" (getenv "PATH")))
+(setq exec-path (append '("/usr/local/opt/llvm/bin""/usr/local/bin") exec-path))
 ;;<======================================================
 
 ;; Manage buffers with key-chord========================>
