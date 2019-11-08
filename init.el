@@ -21,6 +21,9 @@
 
 ;;theme 
 (use-package monokai-theme
+             :init
+             (setq monokai-foreground "#f0decb"
+                   monokai-red "#e40475")
              :config
              (load-theme 'monokai t))
 ;(use-package zenburn-theme
@@ -44,7 +47,7 @@
 (add-to-list 'default-frame-alist '(width . 120))
 
 ;;set font 
-(add-to-list 'default-frame-alist '(font . "Fira Code 18"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata 22"))
 
 ;;disable scroll-bar
 (scroll-bar-mode -1)
