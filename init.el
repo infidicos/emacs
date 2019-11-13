@@ -225,14 +225,45 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;set visual-line-mode, minor mode of emacs
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 
-;;set key C-. to switch buffer should use with ido-mode=>
-(global-set-key (kbd "C-.")
-
-	(lambda () (interactive "")
-
-	  (switch-to-buffer (other-buffer (current-buffer) t))))
-;;<======================================================
+;;switch previous buffer
+(defun jump-previous-buffer()
+  (interactive)
+  (switch-to-buffer(other-buffer)))
+(global-set-key (kbd "C-;") 'jump-previous-buffer)
 
 ;;set key C-, to switch window
 (global-set-key (kbd "C-,") 'other-window)
 
+;;jump next buffer and skip some  buffer==================>
+(defvar my-skippable-buffers '("*Messages*" "*scratch*" "*Help*")
+  "Buffer names ignored by `my-next-buffer' ")
+
+(defun my-change-buffer (change-buffer)
+  "Call CHANGE-BUFFER until current buffer is not in `my-skippable-buffers'."
+  (let ((initial (current-buffer)))
+    (funcall change-buffer)
+    (let ((first-change (current-buffer)))
+      (catch 'loop
+        (while (member (buffer-name) my-skippable-buffers)
+          (funcall change-buffer)
+          (when (eq (current-buffer) first-change)
+            (switch-to-buffer initial)
+            (throw 'loop t)))))))
+
+(defun my-next-buffer ()
+  "Variant of `next-buffer' that skips `my-skippable-buffers'."
+  (interactive)
+  (my-change-buffer 'next-buffer))
+(global-set-key (kbd "C-'") 'my-next-buffer)
+;;<========================================================
+
+;;switch buffer in ido-mode
+(global-set-key (kbd "C-.") 'ido-switch-buffer)
+
+;;set autopair {} for electric-pair-mode
+(electric-pair-mode t)
+(setq electric-pair-mode '(
+                          (?\{ . ?\})))
+
+;;ido-mode
+(ido-mode t)
