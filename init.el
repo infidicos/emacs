@@ -1,4 +1,4 @@
-;;### infidicos's emacs config ###
+;;### Infidicos's emacs config ###
 
 ;;set package manager rep================================>
 (require 'package)
@@ -19,16 +19,19 @@
 ;;install package if not avalable with key ensure for all of use-package
 (setq use-package-always-ensure t)
 
-;;theme 
+;;theme
 (use-package monokai-theme
              :init
-             (setq monokai-foreground "#f0decb"
-                   monokai-red "#e40475")
+             (setq monokai-foreground "#bcbab8"
+                   monokai-red "#C15567"
+                   monokai-blue "#77B1D6"
+                   monokai-green "#ADC966"
+                   monokai-violet "#9961BF")
              :config
              (load-theme 'monokai t))
 ;(use-package zenburn-theme
 ;             :init
-;             (setq zenburn-override-colors-alist
+;             (Setq zenburn-override-colors-alist
 ;                   '(("zenburn-bg" . "#282828")))
 ;             :config
 ;             (load-theme 'zenburn t))
@@ -36,7 +39,7 @@
 ;             :config
 ;             (load-theme 'doom-solarized-dark t))
 ;(use-package solarized-theme
-;             :init 
+;             :init
 ;             (load-theme 'solarized-gruvbox-dark t)
 ;             :config
 ;             (setq solarized-high-contrast-mode-line t))
@@ -46,8 +49,8 @@
 (add-to-list 'default-frame-alist '(height . 40))
 (add-to-list 'default-frame-alist '(width . 120))
 
-;;set font 
-(add-to-list 'default-frame-alist '(font . "Inconsolata 22"))
+;;set font
+(add-to-list 'default-frame-alist '(font . "Hack 18"))
 
 ;;disable scroll-bar
 (scroll-bar-mode -1)
@@ -81,7 +84,7 @@
 
 ;;preserve screen position when jumping around
 ;;use C-SPC C-SPC to mark current point to pushes it onto a stack of marks and then go back using pop-global-mark C-x C-SPC
-(setq scroll-preserve-screen-position t) 
+(setq scroll-preserve-screen-position t)
 
 ;;current line highlighting
 (global-hl-line-mode +1)
@@ -132,12 +135,13 @@
 
 ;;visual tab as a pipe character "|"
 ;; This will also show trailing characters as they are useful to spot.
-(setq whitespace-style '(face tabs tab-mark trailing))
-(custom-set-faces
-  '(whitespace-tab ((t (:background unspecified :foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
-(setq whitespace-display-mappings
-  '((tab-mark 9 [124 9] [92 9]))) ;124 is ascii id for "|"
-(global-whitespace-mode) ;enable whitespace mode everywhere
+(defun visual-tabs-as-pipe ()
+  (interactive)
+  (setq whitespace-style '(face tabs tab-mark trailing))
+  (custom-set-faces '(whitespace-tab ((t (:background unspecified :foreground "#3e3f36"))))) ;theme have background #272822, hsl(70,8,15) increase l to 20%
+  (setq whitespace-display-mappings '((tab-mark 9 [124 9] [92 9]))) ;124 is ascii id for "|"
+  (whitespace-mode) ;enable whitespace mode everywhere
+  )
 ;;<=====================================================
 
 ;; Display parentheses (highlight matching brackets)
@@ -165,8 +169,8 @@
 ;;<======================================================
 
 ;;add PATH and exec-path ===============================>
-(setenv "PATH" (concat "/usr/local/opt/llvm/bin:/usr/local/bin:" (getenv "PATH")))
-(setq exec-path (append '("/usr/local/opt/llvm/bin""/usr/local/bin") exec-path))
+(setenv "PATH" (concat "/opt/qt5.13/bin:/usr/local/opt/llvm/bin:/usr/local/bin:" (getenv "PATH")))
+(setq exec-path (append '("/opt/qt5.13/bin:/usr/local/opt/llvm/bin""/usr/local/bin") exec-path))
 ;;<======================================================
 
 ;; Manage buffers with key-chord========================>
@@ -207,10 +211,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun eshell-prompt ()
     (let ((branch-name (git-prompt-branch-name)))
       (concat
-       "infidicos "
+       (propertize (format "infidicos " ) 'face `(:foreground "#8C4B61"))
        (abbreviate-file-name (eshell/pwd)) "\n"
        (if branch-name
-            (concat 
+            (concat
                 (propertize (format "(%s)" branch-name ) 'face `(:foreground "green4"))
                 "$ ")
             "$ ")
